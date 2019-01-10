@@ -1,15 +1,15 @@
-var spinDancer = function(top, left, timeBetweenSteps) {
+var makeSpinDancer = function(top, left, timeBetweenSteps) {
   makeDancer.call(this, top, left, timeBetweenSteps);
   // we plan to overwrite the step function below, but we still want the superclass step behavior to work,
   // so we must keep a copy of the old version of this function
   this.$node.css('border-top-color', 'yellow').addClass('rotating');
 };
 
-spinDancer.prototype = Object.create(makeDancer.prototype);
+makeSpinDancer.prototype = Object.create(makeDancer.prototype);
 
-spinDancer.prototype.constructor = spinDancer;
+makeSpinDancer.prototype.constructor = makeSpinDancer;
 
-spinDancer.prototype.step = function() {
+makeSpinDancer.prototype.step = function() {
   // call the old version of step at the beginning of any call to this new version of step
   makeDancer.prototype.step.call(this);
   // toggle() is a jQuery method to show/hide the <span> tag.

@@ -5,16 +5,15 @@ body{
   margin: 0px;
   background-color:#444;
   font-size: 18px;
-  /*background-image: url('https://i.imgur.com/Un54OUd.gif');*/
+  background-size: cover;
+  /*background-image: url('http://images.rapgenius.com/2f3f5a8e53f22a2ec3725da90ccb3e6a.640x360x16.gif');*/
 }
 body, a:link, a:visited, a:active{
   color: lightblue;
 }
-.title, .addDancerButton, .lineUpButton {
+.title, .addDancerButton, .lineUpButton, .danceButton {
   padding:5px 12px;
   float:right;
-}
-.addDancerButton, .lineUpButton {
   width: 165px;
 }
 .title-grey {
@@ -26,7 +25,7 @@ body, a:link, a:visited, a:active{
   height:32px;
   background-color: #555;
 }
-.title{
+.title, .danceButton {
   background-color: #777;
   height: 27px;
   padding: 5px 10px 0px 10px;
@@ -61,4 +60,14 @@ body, a:link, a:visited, a:active{
   40%, 60% {
     transform: translate3d(4px, 0, 0);
   }
+}
+
+.rotating{
+  animation:rotate 3s  infinite;
+  animation-timing-function: cubic-bezier(1,0,.5,1);
+}
+
+@-webkit-keyframes rotate {
+  from { -webkit-transform: rotate(0deg) }
+  to { -webkit-transform: rotate(360deg) }
 }

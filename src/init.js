@@ -24,7 +24,7 @@ $(document).ready(function() {
     // make a dancer with a random position
 
     var dancer = new dancerMakerFunction(
-      $('body').height() * Math.random(),
+      ($('body').height() - 110) * Math.random() + 65,
       $('body').width() * Math.random(),
       Math.random() * 1000
     );
@@ -42,7 +42,7 @@ $(document).ready(function() {
   $('.lineUpButton').on('click', function(event) {
     var dancerMakerFunctionName = $(this).data('dancer-maker-function-name');
     var array = window.dancers[dancerMakerFunctionName];
-    var yOffset = window.innerHeight / 2 * Object.keys(window.dancers).indexOf(dancerMakerFunctionName) + 68;
+    var yOffset = window.innerHeight / Object.keys(window.dancers).length * Object.keys(window.dancers).indexOf(dancerMakerFunctionName) + 68;
     for (var i = 0; i < array.length; i++) {
       var position = i / array.length;
       var xOffset = window.innerWidth * (position + 0.5 / array.length);
@@ -51,6 +51,7 @@ $(document).ready(function() {
   });
 
   $('.danceButton').on('click', function(event) {
+    $('body').css('background-image', 'url(\'http://images.rapgenius.com/2f3f5a8e53f22a2ec3725da90ccb3e6a.640x360x16.gif\')');
     var copy = Array.from(window.dancersArray);
     while (copy.length >= 2) {
       var first = copy.shift();

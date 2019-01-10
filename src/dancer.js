@@ -7,10 +7,15 @@ var makeDancer = function(top, left, timeBetweenSteps) {
   // now that we have defined the dancer object, we can start setting up important parts of it by calling the methods we wrote
   // this one sets the position to some random default point within the body
   this.setPosition(top, left);
+  var node = this;
   $(this.$node).mouseover(function() {
     $(this).addClass('shaking');
+    $(this).removeClass('rotating');
   }).mouseout(function() {
     $(this).removeClass('shaking');
+    if (node instanceof makeSpinDancer) {
+      $(this).addClass('rotating');
+    }
   });
 };
 
@@ -32,8 +37,10 @@ makeDancer.prototype.setPosition = function(top, left) {
 };
 
 makeDancer.prototype.lineUp = function(xOffset, yOffset) {
-  //this.node.animate()
-  this.$node.css({'top': yOffset + 'px', 'left': xOffset + 'px'});
+  this.$node.animate({
+    'top': yOffset,
+    'left': xOffset
+  }, 2000);
 };
 
 makeDancer.prototype.dance = function(xMeet, yMeet) {
@@ -41,5 +48,5 @@ makeDancer.prototype.dance = function(xMeet, yMeet) {
     'top': yMeet,
     'left': xMeet
   }, 2000);
-  this.$node.addClass('shaking');
+  setTimeout($().addClass.bind(this.$node), Math.random() * 1000, 'shaking');
 };
