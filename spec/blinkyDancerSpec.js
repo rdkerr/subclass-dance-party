@@ -13,9 +13,9 @@ describe('blinkyDancer', function() {
   });
 
   it('should have a step function that makes its node blink', function() {
-    sinon.spy(blinkyDancer.$node, 'toggle');
+    sinon.spy(blinkyDancer.$node, 'css');
     blinkyDancer.step();
-    expect(blinkyDancer.$node.toggle.called).to.be.true;
+    expect(blinkyDancer.$node.css.called).to.be.true;
   });
 
   describe('dance', function() {
@@ -29,6 +29,19 @@ describe('blinkyDancer', function() {
 
       clock.tick(timeBetweenSteps);
       expect(blinkyDancer.step.callCount).to.be.equal(2);
+    });
+  });
+
+  describe('constructors', function() {
+    it('should inherit all methods from superclass', function() {
+      expect(blinkyDancer.dance).to.be.a('function');
+      expect(blinkyDancer.step).to.be.a('function');
+      expect(blinkyDancer.setPosition).to.be.a('function');
+      expect(blinkyDancer.lineUp).to.be.a('function');
+    });
+
+    it('should be the constructor of its prototype object', function() {
+      expect(makeBlinkyDancer.prototype.constructor).to.be.equal(makeBlinkyDancer);
     });
   });
 });
