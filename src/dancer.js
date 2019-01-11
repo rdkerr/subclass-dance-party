@@ -7,6 +7,8 @@ var makeDancer = function(top, left, timeBetweenSteps) {
   // now that we have defined the dancer object, we can start setting up important parts of it by calling the methods we wrote
   // this one sets the position to some random default point within the body
   this.setPosition(top, left);
+  this.top = top;
+  this.left = left;
   var node = this;
   $(this.$node).mouseover(function() {
     $(this).addClass('shaking');
@@ -22,7 +24,7 @@ var makeDancer = function(top, left, timeBetweenSteps) {
 makeDancer.prototype.step = function() {
   // the basic dancer doesn't do anything interesting at all on each step,
   // it just schedules the next step
-  setTimeout(this.step.bind(this), this.timeBetweenSteps);
+  setTimeout(this.step.bind(this), Math.random() * this.timeBetweenSteps);
 };
 
 makeDancer.prototype.setPosition = function(top, left) {
@@ -49,4 +51,12 @@ makeDancer.prototype.dance = function(xMeet, yMeet) {
     'left': xMeet
   }, 2000);
   setTimeout($().addClass.bind(this.$node), Math.random() * 1000, 'shaking');
+  setTimeout($().removeClass.bind(this.$node), 10000, 'shaking');
+};
+
+makeDancer.prototype.resetPosition = function() {
+  this.$node.animate({
+    'top': this.top,
+    'left': this.left
+  }, 2000);
 };

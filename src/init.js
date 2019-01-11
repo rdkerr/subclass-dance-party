@@ -1,7 +1,7 @@
 $(document).ready(function() {
   window.dancers = {};
   window.dancersArray = [];
-
+  $('audio')[0].volume = 0.1;
   $('.addDancerButton').on('click', function(event) {
     /* This function sets up the click handlers for the create-dancer
      * buttons on dancefloor.html. You should only need to make one small change to it.
@@ -24,9 +24,9 @@ $(document).ready(function() {
     // make a dancer with a random position
 
     var dancer = new dancerMakerFunction(
-      ($('body').height() - 110) * Math.random() + 65,
-      $('body').width() * Math.random(),
-      Math.random() * 1000
+      ($('body').height() - 170) * Math.random() + 70,
+      ($('body').width() - 350) * Math.random() + 100,
+      Math.random() * 800 + 200
     );
 
     var dancerType = dancer.constructor.name;
@@ -43,15 +43,18 @@ $(document).ready(function() {
     var dancerMakerFunctionName = $(this).data('dancer-maker-function-name');
     var array = window.dancers[dancerMakerFunctionName];
     var yOffset = window.innerHeight / Object.keys(window.dancers).length * Object.keys(window.dancers).indexOf(dancerMakerFunctionName) + 68;
-    for (var i = 0; i < array.length; i++) {
-      var position = i / array.length;
-      var xOffset = window.innerWidth * (position + 0.5 / array.length);
-      array[i].lineUp(xOffset, yOffset);
+    if (array) {
+      for (var i = 0; i < array.length; i++) {
+        var position = i / array.length;
+        var xOffset = window.innerWidth * (position + 0.5 / array.length);
+        array[i].lineUp(xOffset, yOffset);
+      }
     }
   });
 
   $('.danceButton').on('click', function(event) {
     $('body').css('background-image', 'url(\'http://images.rapgenius.com/2f3f5a8e53f22a2ec3725da90ccb3e6a.640x360x16.gif\')');
+    setTimeout($().css.bind($('body')), 12000, 'background-image', '');
     var copy = Array.from(window.dancersArray);
     while (copy.length >= 2) {
       var first = copy.shift();
@@ -69,15 +72,23 @@ $(document).ready(function() {
       copy.splice(index, 1);
       var xMeet = (first.$node[0].offsetLeft + second.$node[0].offsetLeft) / 2;
       var yMeet = (first.$node[0].offsetTop + second.$node[0].offsetTop) / 2;
-      var xDirection = first.$node[0].offsetLeft > xMeet ? xMeet + 10 : xMeet - 10;
-      var yDirection = first.$node[0].offsetTop > yMeet ? yMeet + 10 : yMeet - 10;
+      var xDirection = first.$node[0].offsetLeft >= xMeet ? xMeet + 10 : xMeet - 10;
+      var yDirection = first.$node[0].offsetTop >= yMeet ? yMeet + 10 : yMeet - 10;
       first.dance(xDirection, yDirection);
-      xDirection = second.$node[0].offsetLeft > xMeet ? xMeet + 10 : xMeet - 10;
-      yDirection = second.$node[0].offsetTop > yMeet ? yMeet + 10 : yMeet - 10;
+      setTimeout(first.resetPosition.bind(first), 11000);
+      xDirection = second.$node[0].offsetLeft >= xMeet ? xMeet + 10 : xMeet - 10;
+      yDirection = second.$node[0].offsetTop >= yMeet ? yMeet + 10 : yMeet - 10;
       second.dance(xDirection, yDirection);
+      setTimeout(second.resetPosition.bind(second), 11000);
     }
+
+    $('audio')[0].play();
   });
 
-
+  $('.returnButton').on('click', function(event) {
+    for (var i = 0; i < window.dancersArray.length; i++) {
+      window.dancersArray[i].resetPosition();
+    }
+  });
 });
 

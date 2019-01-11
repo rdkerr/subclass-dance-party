@@ -37,34 +37,47 @@ body, a:link, a:visited, a:active{
   position:absolute;
 }
 
+img{
+  position: absolute;
+  height: 10%;
+  width: 10%;
+}
+
 .shaking{
-  animation: shake 5s cubic-bezier(.36,.07,.19,.97) both;
+  animation-name: shake;
+  animation-duration: 13s;
+  animation-timing-function: cubic-bezier(.3,.1,.2,1);
+  animation-fill-mode: both;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   perspective: 1000px;
 }
 
+iframe {
+  display: none;
+}
+
 @keyframes shake {
   10%, 90% {
-    transform: translate3d(-1px, 0, 0);
+    transform: translate3d(-12px, 0, 0);
   }
-
   20%, 80% {
-    transform: translate3d(2px, 0, 0);
+    transform: translate3d(14px, 0, 0);
   }
-
   30%, 50%, 70% {
-    transform: translate3d(-4px, 0, 0);
+    transform: translate3d(-16px, 0, 0);
   }
-
   40%, 60% {
-    transform: translate3d(4px, 0, 0);
+    transform: translate3d(18px, 0, 0);
   }
 }
 
 .rotating{
-  animation:rotate 3s  infinite;
-  animation-timing-function: cubic-bezier(1,0,.5,1);
+  animation-name: rotate;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(1,1,1,1);
+  animation-fill-mode: both;
 }
 
 @-webkit-keyframes rotate {
